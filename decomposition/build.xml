@@ -1,0 +1,25 @@
+<project default="compare">
+	
+	<target name="loadModels">
+		
+		<epsilon.emf.register file="Decomposition.ecore"/>
+		
+		<epsilon.emf.loadModel name="original"
+                                       modelFile="original_samplecase_decomposition.model"
+                                       metamodelUri="Decomposition"
+                                       read="true" store="false" />
+		
+		<epsilon.emf.loadModel name="reconstructed"
+                                       modelFile="reconstructed_samplecase_decomposition.model"
+                                       metamodelUri="Decomposition"
+                                       read="true" store="false" />
+	</target>
+		
+	<target name="compare" depends="loadModels">
+		<epsilon.ecl src="DecompositionModelComparator.ecl" 
+			exportmatchtrace="matchTrace">
+			<model ref="original" alias="Source"/>
+			<model ref="reconstructed" alias="Source"/>
+		</epsilon.ecl>
+	</target>
+</project>
